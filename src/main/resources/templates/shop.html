@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/commons::head"></head>
+<body>
+<header th:replace="fragments/commons::nav"></header>
+<main>
+    <div class="container">
+        <h1 class="text-left mt-2">
+            <div>
+                <span class="badge badge-pill badge-dark">Shop</span>
+            </div>
+        </h1>
+        <div class='row mb-4 d-flex justify-content-around'>
+            <div th:each="offer : ${offers}"  class="pages-section col-md-5 mb-4 mr-auto d-flex flex-column ">
+                <h2>
+                    <span th:text="|${offer.seller.username} offers: ${offer.page.name}|">Offer</span>
+                </h2>
+                <div>
+                    <table style="table-layout: auto;">
+                        <tr>
+                            <span>price: </span>
+                            <strong style="display:block ;" th:text="|${#numbers.formatDecimal(offer.price, 1, 'DEFAULT', 2, 'DEFAULT')}$|"></strong>
+                        </tr>
+                        <tr><img style="display:block ;" width="800" height="534" alt="image" th:src="@{${offer.page.imageURL}}"
+                                 class="img-thumbnail rounded"></tr>
+                    </table>
+                </div>
+                <form th:action="@{/offers/shop/buy(id=${offer.id})}" th:method="POST">
+                    <button type="submit" class="button-buy"  style="display:block ;">Buy Now</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</main>
+<footer th:replace="fragments/commons::footer"></footer>
+</body>
+</html>

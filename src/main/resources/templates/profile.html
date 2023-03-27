@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/commons::head"></head>
+<body>
+<header th:replace="fragments/commons::nav"></header>
+<main>
+    <div class="container">
+        <div style="float:left ; width: 50% ;">
+            <h1 class="text-left mt-2" style="display: flex; align-items: center;">
+                <div>
+                    <span class="badge badge-pill badge-dark">Your Pages</span>
+                    <a class="add-page-button" href="/pages/add">Add Page</a>
+                </div>
+            </h1>
+            <div class='row mb-4 d-flex justify-content-around'>
+                <div th:each="page : ${pages}"  class="pages-section col-md-5 mb-4 mr-auto d-flex flex-column">
+                    <h2>
+                        <span style="display:block ;" th:text="${page.name}">Page name</span>
+                    </h2>
+                    <div>
+                        <table style="table-layout: auto;">
+                            <tr>
+                                <td style="display:block ;" th:text="|followers: ${page.followers}|">followers: </td>
+                            </tr>
+                            <tr>
+                                <td style="display:block ;" th:text="|following: ${page.following}|"></td>
+                            </tr>
+                            <tr>
+                                <td style="display:block ;" th:text="|niche: ${page.niche.niche}|"></td>
+                            </tr>
+                            <tr><img style="display:block ;" alt="image" width="800" height="534" th:src="@{${page.imageURL}}"
+                                     class="img-thumbnail rounded"></tr>
+                        </table>
+                        <form th:action="@{/pages/delete(id=${page.id})}" th:method="delete">
+                            <button type="submit" class="button-delete position-button"  style="display:block ;">Delete</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div style="float:right ; width: 50% ;">
+            <h1 class="text-left mt-2">
+                <div>
+                    <span class="badge badge-pill badge-dark">Your Offers</span>
+                    <a class="add-offer-button" href="/offers/add">Add Offer</a>
+                </div>
+            </h1>
+            <div class='row mb-4 d-flex justify-content-around'>
+                <div th:each="offer : ${offers}"  class="pages-section col-md-5 mb-4 mr-auto d-flex flex-column ">
+                    <h2>
+                        <span style="display:block ;" th:text="|Your offer: ${offer.page.name}|">Offer</span>
+                    </h2>
+                    <div>
+                        <table style="table-layout: auto;">
+                            <tr>
+                                <span>price: </span>
+                                <strong style="display:block ;" th:text="|${#numbers.formatDecimal(offer.price, 1, 'DEFAULT', 2, 'DEFAULT')}$|"></strong>
+                            </tr>
+                            <tr><img style="display:block ;" alt="image" width="800" height="534" th:src="@{${offer.page.imageURL}}"
+                                     class="img-thumbnail rounded"></tr>
+                        </table>
+                    </div>
+                    <form th:action="@{/offers/delete(id=${offer.id})}" th:method="delete">
+                        <button type="submit" class="button-delete position-button"  style="display:block ;">Remove</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</main>
+<footer th:replace="fragments/commons::footer"></footer>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Reseller App</title>
+    <link rel="stylesheet" href="/css/reset-css.css"/>
+    <link rel="stylesheet" href="/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="/css/style.css"/>
+</head>
+<body>
+<header>
+    <nav class="navbar navbar-expand-lg bg-nav rounded">
+        <div sec:authorize="!isAuthenticated()">
+            <a class="nav-link text-primary active h5 text-stroke" href="/">InstaSeller App</a>
+        </div>
+        <div sec:authorize="isAuthenticated()">
+            <a class="nav-link text-primary active h5 text-stroke" href="/home">InstaSeller App</a>
+        </div>
+        <div sec:authorize="isAuthenticated()">
+            <a class="nav-link text-primary active h5 text-stroke" href="/profile">Profile</a>
+        </div>
+        <div sec:authorize="isAuthenticated()">
+            <a class="nav-link text-primary active h5 text-stroke" href="/offers/shop">Shop</a>
+        </div>
+        <div class="collapse navbar-collapse d-flex justify-content-end" id="navbarNav">
+            <ul class="navbar-nav row">
+                <li sec:authorize="!isAuthenticated()" class="nav-item col-md-4">
+                    <a class="nav-link text-primary active h5 text-stroke" href="/auth/login">Login</a>
+                </li>
+
+                <li sec:authorize="!isAuthenticated()" class="nav-item col-md-4">
+                    <a class="nav-link text-primary active h5 text-stroke" href="/auth/register">Register</a>
+                </li>
+
+                <li sec:authorize="isAuthenticated()" class="nav-item col-md-4">
+                    <form
+                            th:method="POST"
+                            th:action="@{/auth/logout}">
+                        <input class="nav-link text-primary active h5 text-stroke logout-btn" type="submit" value="Logout">
+                    </form>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</header>
+<footer class="footer bg-transparent py-2">
+    <div class="container-fluid text-center">
+        <div class="footer-background h5 text-primary text-stroke fixed-bottom">
+            Project Spring Advanced 2023
+        </div>
+    </div>
+</footer>
+</body>
+</html>

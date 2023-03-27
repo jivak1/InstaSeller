@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/commons::head"></head>
+<body>
+<header th:replace="fragments/commons::nav"></header>
+<main>
+  <h1 class="text-center mt-2"><span class="badge badge-pill badge-dark">Add offer</span></h1>
+  <hr class="hr-3 w-25 bg-white"/>
+
+  <form class="mx-auto w-25 bg-blur rounded" th:method="POST" th:action="@{/pages/add}" th:object="${page}">
+
+    <div class="form-group">
+      <div class="label-holder text-white d-flex justify-content-center">
+        <label for="name" class="h3 mb-2">Account name</label>
+      </div>
+      <input th:value="${page.name}" th:errorclass="bg-danger" type="text" class="form-control" id="name" name="name"/>
+      <small th:if="${#fields.hasErrors('name')}" th:errors="${page.name}" class="text-danger">Name error message</small>
+    </div>
+
+    <div class="form-group">
+      <div class="label-holder text-white textCol d-flex justify-content-center">
+        <label for="followers" class="h4 mb-2">Followers</label>
+      </div>
+      <input th:field="${page.followers}" th:errorclass="bg-danger" type="number" step="0.01" class="form-control" id="followers" name="followers"/>
+      <small th:if="${#fields.hasErrors('followers')}" th:errors="${page.followers}" class="text-danger">Followers error message</small>
+    </div>
+
+    <div class="form-group">
+      <div class="label-holder text-white textCol d-flex justify-content-center">
+        <label for="following" class="h4 mb-2">Following</label>
+      </div>
+      <input th:field="${page.following}" th:errorclass="bg-danger" type="number" step="0.01" class="form-control" id="following" name="following"/>
+      <small th:if="${#fields.hasErrors('following')}" th:errors="${page.following}" class="text-danger">Following error message</small>
+    </div>
+
+    <div class="form-group">
+      <div class="text-white label-holder d-flex justify-content-center">
+        <label for="niche" class="h4 mb-2">Niche</label>
+      </div>
+      <select th:field="${page.nicheName}" th:errorclass="bg-danger"  class="browser-default custom-select" id="niche" name="niche">
+        <option  value="">Select niche</option>
+        <option th:each="niche : ${niches}" th:text="${niche.niche}" th:value="${niche.niche}">Niches</option>
+      </select>
+      <small th:if="${#fields.hasErrors('nicheName')}" th:errors="${page.nicheName}"  class="text-danger">Niche error message</small>
+    </div>
+
+    <div class="form-group">
+      <div class="label-holder text-white textCol d-flex justify-content-center">
+        <label for="imageURL" class="h3 mb-2">Photo</label>
+      </div>
+        <input th:field="${page.imageURL}" th:errorclass="bg-danger" id="imageURL" type="url" class="form-control">
+        <small th:if="${#fields.hasErrors('imageURL')}" th:errors="${page.imageURL}"  class="text-danger">Image error message</small>
+    </div>
+
+    <div class="button-holder d-flex justify-content-center">
+      <button type="submit" class="btn btn-warning  mb-3" value="Register">Add page</button>
+    </div>
+
+  </form>
+</main>
+<footer th:replace="fragments/commons::footer"></footer>
+</body>
+</html>
