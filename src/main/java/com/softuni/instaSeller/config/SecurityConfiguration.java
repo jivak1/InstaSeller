@@ -25,7 +25,6 @@ public class SecurityConfiguration {
             .requestMatchers("/home").authenticated()
             .anyRequest().authenticated()
             .and()
-          // configure login with HTML form
             .formLogin()
             .loginPage("/auth/login")
             .usernameParameter(UsernamePasswordAuthenticationFilter.SPRING_SECURITY_FORM_USERNAME_KEY)
